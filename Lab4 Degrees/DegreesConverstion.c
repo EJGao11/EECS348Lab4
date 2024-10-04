@@ -1,3 +1,9 @@
+// Ethan Gao 
+// KU ID: 3121537
+// Lab: 4
+// Collaborators: None
+// Purpose: Takes a user temperture and than converts and gives adivce 
+
 #include <stdio.h>
 
 //Conversion Formulas with functions 

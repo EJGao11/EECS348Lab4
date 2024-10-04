@@ -1,3 +1,10 @@
+// Ethan Gao 
+// KU ID: 3121537
+// Lab: 4
+// Collaborators: None
+// Purpose: Takes the NFL sore and give all possiblities
+
+
 #include <stdio.h>
 
 // Function to print the current combination
