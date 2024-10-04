@@ -1,95 +1,96 @@
 #include <stdio.h>
 
-// Function to print the current combination
-void printCombination(int combination[], int count) 
+//Conversion Formulas with functions 
+float celsiusToFahrenheit (float celsius)
 {
-    int TD2 =0;
-    int TD1 = 0;
-    int TD = 0;
-    int FG = 0;
-    int safty = 0;
-
-    for (int i = 0; i < count; i++) 
-    {
-        // Counts the combs into plays
-        switch( combination[i])
-        {
-            case 8:
-                TD2++;
-                break;
-
-            case 7:
-                TD1++;
-                break;
-            
-            case 6:
-                TD++;
-                break;
-            case 3:
-                FG++;
-                break;
-            case 2:
-                safty++;
-                break;
-
-            default:
-                break;
-        }
-    }
-    //Displays each play made
-    printf("TD 2pt Conversion: %d ", TD2);
-    printf(" TD Fieldgoal: %d ", TD1);
-    printf(" Towndown: %d ", TD);
-    printf(" Fieldgoal: %d ", FG);
-    printf(" Safty : %d ", safty);
-    printf("\n");
+    return ((9.0/5.0)*celsius) + 32;
 }
 
-
-void findCombinations(int points[], int n, int sum, int combination[], int index) 
+float fahrenheitToCelsius (float fahrenheit)
 {
-   
-    // Find vaild comb than sends to print
-    if (sum == 0) 
-    {
-        printCombination(combination, index);
-        return;
-    }
-
-    // Over the point count or ran out of options
-    if (sum < 0 || n <= 0) 
-    {
-        return;
-    }
-
-    // Puts the play into comb
-    combination[index] = points[n - 1];
-   
-    // Inculde or exclude play
-    findCombinations(points, n, sum - points[n - 1], combination, index + 1);
-
-    findCombinations(points, n - 1, sum, combination, index);
+    return (5.0/9.0)*(fahrenheit - 32);
 }
 
-// Sets up points and calls the recursive function
+float celsiusToKelvin(float celsius)
+{
+    return celsius + 273.15;
+}
+
+float kelvinToCelsius (float kelvin)
+{
+    return kelvin - 273.15;
+}
+
+// Take the temp in celsius than gives advice 
+void categorizeTemp (float celsius)
+{
+    printf("Sup");
+}
+
 int main() 
 {
-    int points[] = {2, 3, 6, 7, 8};
 
-    int targetScore = 0;
-    int combination[1000];
+    float temperature = 0;
+    int currentScale = 0;
+    int convertScale = 0;
+    // Takes user input
+    printf("Enter the Temperature: ");
+    scanf("%f", &temperature);
 
-    printf("Enter NFL Score: ");
-    scanf("%d", &targetScore);
+    printf("Choose the Current Scale (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
+    scanf("%d", &currentScale);
 
-    if(targetScore == 0 || targetScore == 1)
+    printf("Convert to (1) Celsius, (2) Fahrenheit,(3) Kelvin: ");
+    scanf("%d", &convertScale);
+
+    // Looks for conversion errors  
+    if(convertScale == currentScale)
     {
-        printf("Invaild Score Enter something Higher than 2");
+        printf("Invaild Conversion");
+        return -1;
     }
-    else
+    if(currentScale == 1 && temperature < -273.15)
     {
-        printf("Combinations of plays that sum to %d:\n", targetScore);
-        findCombinations(points, 5, targetScore, combination, 0);
+        printf("Invaild Current Temperature");
+        return -1;
+    } 
+    if(currentScale == 2 && temperature < -459.67)
+    {
+        printf("Invaild Current Temperature");
+        return -1;
     }
+    if(currentScale == 3 && temperature < 0)
+    {
+        printf("Invaild Current Temperature");
+        return -1;
+    }
+
+    
+    // First locates the current temperture scale
+    float endTemperature = 0;
+    if(currentScale == 1)
+    {
+        //converts the current scale to wanted scale 
+        if(convertScale == 2)
+            endTemperature = celsiusToFahrenheit(temperature);
+        if(convertScale == 3 )
+            endTemperature = celsiusToKelvin(temperature);
+        
+    }
+    if(currentScale == 2)
+    {
+        endTemperature = fahrenheitToCelsius(temperature);
+        if(convertScale == 3)
+            endTemperature = celsiusToKelvin(endTemperature);
+    }
+    if(currentScale == 3)
+    {
+        endTemperature = kelvinToCelsius(temperature);
+        if(convertScale == 2)
+            endTemperature = celsiusToFahrenheit(endTemperature);
+    }
+    // Prints convered temperature and advice 
+    printf("Converted Temperature: %f \n", endTemperature);
+    categorizeTemp(temperature);
     return 0;
 }
