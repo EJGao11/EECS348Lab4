@@ -24,7 +24,31 @@ float kelvinToCelsius (float kelvin)
 // Take the temp in celsius than gives advice 
 void categorizeTemp (float celsius)
 {
-    printf("Sup");
+    if(celsius <= 0)
+    {
+        printf("Temperature category: Freezing \n");
+        printf("Weather Advisory: Be careful of ice on the roads");
+    }
+    if(celsius > 0 && celsius <= 10 )
+    {
+        printf("Temperature category: Cold \n");
+        printf("Weather Advisory: Wear a jacket");
+    }
+    if(celsius > 10 && celsius <= 25 )
+    {
+        printf("Temperature category: Comfortable \n");
+        printf("Weather Advisory: The weather is really nice");
+    }
+    if(celsius > 25 && celsius <= 35 )
+    {
+        printf("Temperature category: Hot \n");
+        printf("Weather Advisory: Stay cool");
+    }
+    if(celsius > 35)
+    {
+        printf("Temperature category: Extreme Heat \n");
+        printf("Weather Advisory: Drink lots of water today");
+    }
 }
 
 int main() 
@@ -70,6 +94,7 @@ int main()
     float endTemperature = 0;
     if(currentScale == 1)
     {
+        
         //converts the current scale to wanted scale 
         if(convertScale == 2)
             endTemperature = celsiusToFahrenheit(temperature);
@@ -79,13 +104,21 @@ int main()
     }
     if(currentScale == 2)
     {
+        //Stores the Celsius degrees for later use in categorizing
         endTemperature = fahrenheitToCelsius(temperature);
+        temperature = endTemperature;
+
+        //Converts to wanted Scale 
         if(convertScale == 3)
             endTemperature = celsiusToKelvin(endTemperature);
     }
     if(currentScale == 3)
     {
+        //Stores the Celsius degrees for later use in categorizing
         endTemperature = kelvinToCelsius(temperature);
+        temperature = endTemperature;
+        
+        //Converts to wanted Scale 
         if(convertScale == 2)
             endTemperature = celsiusToFahrenheit(endTemperature);
     }
